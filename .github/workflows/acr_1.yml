@@ -14,15 +14,12 @@ jobs:
       - name: Run OCI Distribution Spec conformance tests
         uses: opencontainers/distribution-spec@master
         env:
-          OCI_ROOT_URL: https://ociconformance.azurecr.io
+          OCI_ROOT_URL: https://shizhtest.azurecr.io
           OCI_NAMESPACE: ocitest
           OCI_USERNAME: ${{ secrets.ACR_USERNAME }}
           OCI_PASSWORD: ${{ secrets.ACR_PASSWORD }}
           OCI_TEST_PULL: 1
           OCI_HIDE_SKIPPED_WORKFLOWS: 1
-      - name: Upload test report to S3
-        run: aws s3 cp --acl public-read report.html s3://oci-conformance/distribution-spec/acr/pull/report.html
+      - name: Upload test report to Azure Blob Storage
+        run: azcopy --source report.html --destination https://shizhtest.blob.core.windows.net/distribution-spec/acr/pull/report.html --dest-key ${{ secrets.AZURE_ACCESS_KEY }}
         if: always()
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_ACCESS_AWS_SECRET_ACCESS_KEY }}
