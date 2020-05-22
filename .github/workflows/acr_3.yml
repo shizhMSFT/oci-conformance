@@ -23,5 +23,5 @@ jobs:
           OCI_TEST_CONTENT_DISCOVERY: 1
           OCI_HIDE_SKIPPED_WORKFLOWS: 1
       - name: Upload test report to Azure Blob Storage
-        run: azcopy --source report.html --destination https://shizhtest.blob.core.windows.net/distribution-spec/acr/content-discovery/report.html --dest-key ${{ secrets.AZURE_ACCESS_KEY }} --set-content-type text/html
+        run: azcopy --source report.html --destination https://shizhtest.blob.core.windows.net/distribution-spec/acr/content-discovery/report.html --dest-key ${{ secrets.AZURE_ACCESS_KEY }} --set-content-type text/html --quiet
         if: always()
