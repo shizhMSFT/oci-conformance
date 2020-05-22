@@ -7,6 +7,8 @@ on:
       - manual-trigger-acr-3
   schedule:
     - cron: '0 6 * * *'
+  watch:
+    types: [started]
 jobs:
   run:
     runs-on: ubuntu-latest
